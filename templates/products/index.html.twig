@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les produits
+{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3 mb-3">
+        <h1>Les produits</h1>
+    </section>
+
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="row">
+            <div class="col alert alert-success alert-dismissible fade show mx-3" role="alert">
+                {{ msg }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for product in products %}
+        <div class="col">
+            <div class="card h-100">
+                <img class="w-100" src="{{ asset('uploads/') ~ product.image }}" alt="Image de {{ product.title }}">
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="{{ path('products_show', {'id': product.id}) }}" class="text-decoration-none">{{ product.title }}</a>
+                    </h4>
+                    <p class="card-text small">
+                        {{ product.description|slice(0,200) }}...
+                    </p>
+                    <p class="card-text">
+                        <span class="text-primary fw-bold">{{ product.price|format_currency('EUR', locale='fr') }}</span>
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="d-grid gap-2">
+                        <a href="{{path("cart_add", {id: product.id})}}" class="btn btn-success">
+                            <i class="bi bi-cart-plus"></i> Ajouter au panier
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Commande : MaBoutique.com</title>
+	</head>
+	<style>
+		body,
+		html {
+			font-family: sans-serif;
+		}
+		.container {
+			padding: 15px;
+			margin-right: auto;
+			margin-left: auto;
+			background-color: #f2f2f2;
+		}
+		@media(min-width: 768px) {
+			.container {
+				width: 750px;
+			}
+		}
+		@media(min-width: 992px) {
+			.container {
+				width: 970px;
+			}
+		}
+		@media(min-width: 1200px) {
+			.container {
+				width: 1170px;
+			}
+		}
+	</style>
+
+	<body>
+
+		<div class="container">
+
+			<div style="text-align:center;">
+				<h2>Nouvelle commande</h2>
+				<h3>MaBoutique.com</h3>
+			</div>
+
+			<table width="100%">
+				<thead>
+					<th width="50%">Libellé</th>
+					<th>Quantité</th>
+					<th>Prix</th>
+					<th>Total</th>
+				</thead>
+				<tbody>
+					{% for element in dataPanier %}
+						<tr>
+							<td>
+								<a href="{{ path('products_show', {'id': element.produit.id}) }}">{{ element.produit.title }}</a>
+							</td>
+							<td style="text-align:center;">{{ element.quantite }}</td>
+							<td style="text-align:center;">{{ element.produit.price|number_format(2, ',', ' ') }}
+								€</td>
+							<td style="text-align:center;">{{ (element.quantite * element.produit.price)|number_format(2, ',', ' ') }}
+								€</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<td colspan="3">
+							<h4 style="padding-top:15px;">Total de la commande :</h4>
+						</td>
+						<td style="text-align:center; padding-top:20px;">
+							<h4 style="padding-top:20px;">{{ total|number_format(2, ',', ' ') }} €</h4>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div style="text-align:center; margin-top:25px;">
+				{# <a href="{{ site_url_full }}" target="_blank">
+				<img src="{{ site_url_full }}/{{ site_logo }}" alt="{{ site_name }}">
+				</a>
+				<br>
+				{{ site_slogan }} #}
+				<a href="#" target="_blank" style="font-weight:bold;">
+					MaBoutique.com
+				</a>
+				<br>
+				C'est l'assurance d'obtenir les meilleurs produits au meilleur prix, toute l'année !
+			</div>
+
+		</div>
+		
+	</body>
+
+</html>

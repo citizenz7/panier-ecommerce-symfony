@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+    <section class="bg-light p-3">
+        <h1>Résumé de ma commande</h1>
+    </section>
+
+    <table class="table table-striped">
+        <thead>
+            <th>Libellé</th>
+            <th>Quantité</th>
+            <th>Prix unitaire</th>
+            <th>Total</th>
+        </thead>
+        <tbody>
+        {% for element in dataPanier %}
+            <tr>
+                <td><a href="{{ path('products_show', {'id': element.produit.id}) }}">{{ element.produit.title }}</a> </td>
+                <td>{{ element.quantite }}</td>
+                <td>{{ element.produit.price|number_format(2, ',', ' ') }} €</td>
+                <td>{{ (element.quantite * element.produit.price)|number_format(2, ',', ' ') }} €</td>
+             </tr>
+        {% endfor %}
+            <tr class="fw-bold lead">
+                <td colspan="3">Total :</td>
+                <td>{{ total|number_format(2, ',', ' ') }} €</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-end">
+        <a href="{{ path('cart_send') }}" class="btn btn-success mt-4">Valider ma commande</a>
+        <a href="{{ path('cart_index') }}" class="btn btn-primary mt-4 ms-2">Revenir au panier</a>
+    </div>
+    
+{% endblock %}
