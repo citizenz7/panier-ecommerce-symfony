@@ -39,12 +39,12 @@ composer install
 
 créer la base de données MySQL
 ```bash 
-symfony serve d:d:c
+symfony console d:d:c
 ```
 
 importer la migration
 ```bash 
-symfony serve d:m:m
+symfony console d:m:m
 ```
 
 ### Lancement de l'environnement de développement
